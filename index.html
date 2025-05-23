@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Auditif</title>
+</head>
+<body>
+  <h1>Test Auditif</h1>
+  <p>Cliquez sur chaque bouton, et cochez si vous entendez le son.</p>
+
+  <button onclick="playTone(250)">250 Hz</button>
+  <input type="checkbox" id="hz250"> Entendu<br>
+
+  <button onclick="playTone(1000)">1000 Hz</button>
+  <input type="checkbox" id="hz1000"> Entendu<br>
+
+  <button onclick="playTone(4000)">4000 Hz</button>
+  <input type="checkbox" id="hz4000"> Entendu<br>
+
+  <br><button onclick="score()">Afficher le score</button>
+  <p id="resultat"></p>
+
+  <script>
+    function playTone(freq) {
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      osc.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 1);
+    }
+
+    function score() {
+      let score = 0;
+      if (document.getElementById('hz250').checked) score += 1;
+      if (document.getElementById('hz1000').checked) score += 1;
+      if (document.getElementById('hz4000').checked) score += 1;
+      document.getElementById('resultat').innerText = `Score : ${score}/3`;
+    }
+  </script>
+</body>
+</html>
