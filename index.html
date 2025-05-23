@@ -32,4 +32,45 @@
   <button onclick="speak('Il fait beau aujourd’hui.')">Phrase 2</button>
   <input type="checkbox" id="v2"> Compris<br>
 
-  <button onclick="speak('Le chat dort sur le
+  <button onclick="speak('Le chat dort sur le canapé.')">Phrase 3</button>
+  <input type="checkbox" id="v3"> Compris<br>
+
+  <br><button onclick="scoreVoice()">Afficher le score vocal</button>
+  <p id="resultatVoice"></p>
+
+  <script>
+    function playTone(freq) {
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      osc.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 1);
+    }
+
+    function score() {
+      let score = 0;
+      if (document.getElementById('hz250').checked) score += 1;
+      if (document.getElementById('hz1000').checked) score += 1;
+      if (document.getElementById('hz4000').checked) score += 1;
+      document.getElementById('resultat').innerText = `Score : ${score}/3`;
+    }
+
+    function speak(text) {
+      const synth = window.speechSynthesis;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'fr-FR';
+      synth.speak(utter);
+    }
+
+    function scoreVoice() {
+      let score = 0;
+      if (document.getElementById('v1').checked) score += 1;
+      if (document.getElementById('v2').checked) score += 1;
+      if (document.getElementById('v3').checked) score += 1;
+      document.getElementById('resultatVoice').innerText = `Score vocal : ${score}/3`;
+    }
+  </script>
+</body>
+</html>
