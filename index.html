@@ -8,6 +8,7 @@
   <h1>Test Auditif</h1>
   <p>Cliquez sur chaque bouton, et cochez si vous entendez le son.</p>
 
+  <h2>🎧 Sons purs</h2>
   <button onclick="playTone(250)">250 Hz</button>
   <input type="checkbox" id="hz250"> Entendu<br>
 
@@ -17,27 +18,18 @@
   <button onclick="playTone(4000)">4000 Hz</button>
   <input type="checkbox" id="hz4000"> Entendu<br>
 
-  <br><button onclick="score()">Afficher le score</button>
+  <br><button onclick="score()">Afficher le score (sons)</button>
   <p id="resultat"></p>
 
-  <script>
-    function playTone(freq) {
-      const ctx = new AudioContext();
-      const osc = ctx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.value = freq;
-      osc.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 1);
-    }
+  <hr>
 
-    function score() {
-      let score = 0;
-      if (document.getElementById('hz250').checked) score += 1;
-      if (document.getElementById('hz1000').checked) score += 1;
-      if (document.getElementById('hz4000').checked) score += 1;
-      document.getElementById('resultat').innerText = `Score : ${score}/3`;
-    }
-  </script>
-</body>
-</html>
+  <h2>🗣️ Test avec voix</h2>
+  <p>Cliquez sur un bouton pour entendre une phrase. Cochez si vous comprenez ce qui est dit.</p>
+
+  <button onclick="speak('Bonjour, comment ça va ?')">Phrase 1</button>
+  <input type="checkbox" id="v1"> Compris<br>
+
+  <button onclick="speak('Il fait beau aujourd’hui.')">Phrase 2</button>
+  <input type="checkbox" id="v2"> Compris<br>
+
+  <button onclick="speak('Le chat dort sur le
